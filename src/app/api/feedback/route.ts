@@ -55,31 +55,33 @@ Sent from multiDevtools Feedback Form
       // Netlify failed, continue to other methods
     }
 
-    // Use IFTTT webhook (free and reliable)
-    try {
-      const iftttWebhookKey = process.env.IFTTT_WEBHOOK_KEY || 'demo_key';
-      const iftttResponse = await fetch(`https://maker.ifttt.com/trigger/devtools_feedback/with/key/${iftttWebhookKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          value1: name,
-          value2: email,
-          value3: message
-        })
-      });
+    // Use IFTTT webhook (free and reliable) - only if key is provided
+    const iftttWebhookKey = process.env.IFTTT_WEBHOOK_KEY;
+    if (iftttWebhookKey && iftttWebhookKey !== 'demo_key') {
+      try {
+        const iftttResponse = await fetch(`https://maker.ifttt.com/trigger/devtools_feedback/with/key/${iftttWebhookKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            value1: name,
+            value2: email,
+            value3: message
+          })
+        });
 
-      if (iftttResponse.ok) {
-        console.log('✅ Feedback sent successfully via IFTTT to akash.work42@gmail.com');
-        console.log(`From: ${name} (${email})`);
-        console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
-        
-        return NextResponse.json(
-          { message: 'Feedback sent successfully!' },
-          { status: 200 }
-        );
+        if (iftttResponse.ok) {
+          console.log('✅ Feedback sent successfully via IFTTT');
+          console.log(`From: ${name} (${email})`);
+          console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
+          
+          return NextResponse.json(
+            { message: 'Feedback sent successfully!' },
+            { status: 200 }
+          );
+        }
+      } catch (iftttError) {
+        console.log('IFTTT failed:', iftttError);
       }
-    } catch (iftttError) {
-      console.log('IFTTT failed:', iftttError);
     }
 
     // Use simple HTTP POST to a webhook service

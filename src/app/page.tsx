@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "multiDevtools - 80+ Free Developer Tools Suite",
     description: "Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. Fast, free, and works entirely in your browser.",
-    url: "https://multidevtools.com",
+    url: "/",
     type: "website",
   },
   twitter: {

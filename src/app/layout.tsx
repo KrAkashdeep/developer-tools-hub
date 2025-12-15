@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://multidevtools.vercel.app'),
   title: {
     default: "multiDevtools - 80+ Developer Tools Suite",
     template: "%s | multiDevtools"
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://multidevtools.com',
+    url: '/',
     siteName: 'multiDevtools',
     title: 'multiDevtools - 80+ Developer Tools Suite',
     description: 'Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. Fast, free, and works entirely in your browser.',
@@ -69,14 +70,15 @@ export const metadata: Metadata = {
     description: 'Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more.',
     images: ['/og-image.png'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   verification: {
     google: 'your-google-verification-code',
   },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
