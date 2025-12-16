@@ -208,12 +208,12 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   
   if (!tool) {
     return {
-      title: 'Tool Not Found - multiDevtools',
+      title: 'Tool Not Found - multidevTools',
     };
   }
 
   return {
-    title: `${tool.name} - multiDevtools`,
+    title: `${tool.name} - multidevTools`,
     description: tool.description,
   };
 }

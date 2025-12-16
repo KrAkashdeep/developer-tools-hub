@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   
   if (!category) {
     return {
-      title: 'Category Not Found - multiDevtools',
+      title: 'Category Not Found - multidevTools',
     };
   }
 
   return {
-    title: `${category.name} Tools - multiDevtools`,
+    title: `${category.name} Tools - multidevTools`,
     description: `${category.description}. Browse all ${category.name.toLowerCase()} tools.`,
   };
 }

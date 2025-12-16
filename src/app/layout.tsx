@@ -18,8 +18,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://multidevtools.vercel.app'),
   title: {
-    default: "multiDevtools - 80+ Developer Tools Suite",
-    template: "%s | multiDevtools"
+    default: "multidevTools - 80+ Developer Tools Suite",
+    template: "%s | multidevTools"
+  },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
   description: "Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. Fast, free, and works entirely in your browser. JSON formatter, Base64 encoder, color converter, and many more.",
   keywords: [
@@ -34,9 +39,9 @@ export const metadata: Metadata = {
     "free tools",
     "programming tools"
   ],
-  authors: [{ name: "multiDevtools" }],
-  creator: "multiDevtools",
-  publisher: "multiDevtools",
+  authors: [{ name: "multidevTools" }],
+  creator: "multidevTools",
+  publisher: "multidevTools",
   robots: {
     index: true,
     follow: true,
@@ -52,23 +57,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'multiDevtools',
-    title: 'multiDevtools - 80+ Developer Tools Suite',
+    siteName: 'multidevTools',
+    title: 'multidevTools - 80+ Developer Tools Suite',
     description: 'Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. Fast, free, and works entirely in your browser.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/icon.svg',
         width: 1200,
         height: 630,
-        alt: 'multiDevtools - Developer Tools Suite',
+        alt: 'multidevTools - Developer Tools Suite',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'multiDevtools - 80+ Developer Tools Suite',
+    title: 'multidevTools - 80+ Developer Tools Suite',
     description: 'Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more.',
-    images: ['/og-image.png'],
+    images: ['/icon.svg'],
   },
   verification: {
     google: 'your-google-verification-code',
@@ -88,6 +93,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Circular favicon styling */
+            link[rel="icon"] {
+              border-radius: 50% !important;
+              background: white !important;
+              padding: 2px !important;
+            }
+            
+            /* Browser tab favicon circular styling */
+            img[src*="icon.svg"] {
+              border-radius: 50% !important;
+              background: white !important;
+            }
+          `
+        }} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >

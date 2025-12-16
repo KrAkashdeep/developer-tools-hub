@@ -1,4 +1,4 @@
-# multiDevtools - Developer Tools Suite
+# multidevTools - Developer Tools Suite
 
 A comprehensive collection of 80+ developer tools built with Next.js 16, featuring formatters, validators, encoders, converters, and more. All tools work entirely in your browser for maximum privacy and speed.
 

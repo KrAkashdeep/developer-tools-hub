@@ -11,10 +11,14 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="p-2 bg-primary rounded-lg">
-                <IconTool className="h-5 w-5 text-primary-foreground" />
+              <div className="h-7 w-7 rounded-full bg-white p-1 border border-gray-200 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/icon.svg" 
+                  alt="multidevTools Logo" 
+                  className="h-5 w-5 object-cover"
+                />
               </div>
-              <span className="text-lg font-bold">multiDevtools</span>
+              <span className="text-lg font-bold">multidevTools</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               A comprehensive collection of 80+ developer tools for formatting, validation, encoding, conversion, and more.
@@ -105,7 +109,7 @@ export default function Footer() {
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © 2025 multiDevtools. All rights reserved.
+            © 2025 multidevTools. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1 mt-4 md:mt-0">
             Made with <IconHeart className="h-4 w-4 text-red-500" /> for developers

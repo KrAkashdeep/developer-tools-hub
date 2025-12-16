@@ -62,7 +62,7 @@ export default function AboutClient() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            About multiDevtools
+            About multidevTools
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Your go-to platform for professional developer tools. Built with passion for developers, by developers.
@@ -80,7 +80,7 @@ export default function AboutClient() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                multiDevtools was created to provide developers with a comprehensive suite of tools that work 
+                multidevTools was created to provide developers with a comprehensive suite of tools that work 
                 entirely in your browser. No installations, no sign-ups, no data collection - just pure functionality.
               </p>
               <p className="text-muted-foreground">

@@ -55,7 +55,7 @@ export default function PlaceholderTool({ toolName, description, category }: Pla
         <CardContent>
           <CardDescription>
             When completed, this tool will provide {description.toLowerCase()} with the same 
-            high-quality experience you've come to expect from multiDevtools. All tools are 
+            high-quality experience you've come to expect from multidevTools. All tools are 
             designed to be fast, secure, and easy to use.
           </CardDescription>
         </CardContent>

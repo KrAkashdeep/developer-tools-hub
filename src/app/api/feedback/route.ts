@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create formatted email content
-    const emailSubject = `🔔 multiDevtools Feedback from ${name}`;
+    const emailSubject = `🔔 multidevTools Feedback from ${name}`;
     const emailBody = `
 📧 NEW FEEDBACK FROM MULTIDEVTOOLS
 
@@ -36,7 +36,7 @@ ${message}
 
 ---
 Reply to this email to respond directly to ${name} at ${email}
-Sent from multiDevtools Feedback Form
+Sent from multidevTools Feedback Form
     `;
 
     // Use Netlify Forms approach (works with any hosting)
@@ -121,7 +121,7 @@ Sent from multiDevtools Feedback Form
     console.log('💬 Message:', message);
     console.log('');
     console.log('🔗 Quick Reply Link:');
-    const replyLink = `mailto:${email}?subject=Re: multiDevtools Feedback&body=Hi ${name},%0D%0A%0D%0AThank you for your feedback about multiDevtools!%0D%0A%0D%0A`;
+    const replyLink = `mailto:${email}?subject=Re: multidevTools Feedback&body=Hi ${name},%0D%0A%0D%0AThank you for your feedback about multidevTools!%0D%0A%0D%0A`;
     console.log(replyLink);
     console.log('');
     console.log('📋 Copy this to email akash.work42@gmail.com:');

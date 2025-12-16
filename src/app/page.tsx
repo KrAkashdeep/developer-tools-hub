@@ -10,7 +10,7 @@ import * as TablerIcons from '@tabler/icons-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "multiDevtools - 80+ Free Developer Tools Suite",
+  title: "multidevTools - 80+ Free Developer Tools Suite",
   description: "Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. JSON formatter, Base64 encoder, color converter, text utilities, and many more. Fast, free, and works entirely in your browser.",
   keywords: [
     "developer tools",
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     "programming utilities"
   ],
   openGraph: {
-    title: "multiDevtools - 80+ Free Developer Tools Suite",
+    title: "multidevTools - 80+ Free Developer Tools Suite",
     description: "Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more. Fast, free, and works entirely in your browser.",
     url: "/",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "multiDevtools - 80+ Free Developer Tools Suite",
+    title: "multidevTools - 80+ Free Developer Tools Suite",
     description: "Complete developer toolkit with 80+ tools for formatting, converting, encoding, and more.",
   },
 };
@@ -211,7 +211,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose multiDevtools?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose multidevTools?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Built by developers, for developers. Every tool is designed with performance, privacy, and usability in mind.
             </p>
@@ -256,7 +256,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Boost Your Productivity?</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who use multiDevtools daily. Start with any tool and discover your new favorites.
+            Join thousands of developers who use multidevTools daily. Start with any tool and discover your new favorites.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-6 rounded-xl">

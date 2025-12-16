@@ -16,10 +16,14 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="p-2 bg-primary rounded-lg">
-              <IconTool className="h-6 w-6 text-primary-foreground" />
+            <div className="h-8 w-8 rounded-full bg-white p-1 border border-gray-200 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/icon.svg" 
+                alt="multidevTools Logo" 
+                className="h-6 w-6 object-cover"
+              />
             </div>
-            <span className="text-xl font-bold">multiDevtools</span>
+            <span className="text-xl font-bold">multidevTools</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -217,3 +217,44 @@ html {
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out;
 }
+
+/* Circular Favicon Styling */
+link[rel="icon"], 
+link[rel="shortcut icon"], 
+link[rel="apple-touch-icon"] {
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+
+/* Make favicon appear circular in browser tabs */
+head link[rel="icon"] img,
+head link[rel="shortcut icon"] img {
+  border-radius: 50% !important;
+  background: white !important;
+  padding: 2px !important;
+}
+
+/* Circular styling for all favicon references */
+img[src*="icon.svg"] {
+  border-radius: 50% !important;
+}
+
+/* Browser-specific favicon circular styling */
+@supports (-webkit-mask: circle()) {
+  link[rel="icon"] {
+    -webkit-mask: circle(50%);
+    mask: circle(50%);
+  }
+}
+
+/* Alternative approach for favicon circular appearance */
+:root {
+  --favicon-border-radius: 50%;
+}
+
+/* Ensure favicon appears circular in all browsers */
+link[rel*="icon"] {
+  border-radius: var(--favicon-border-radius) !important;
+  -webkit-border-radius: var(--favicon-border-radius) !important;
+  -moz-border-radius: var(--favicon-border-radius) !important;
+}

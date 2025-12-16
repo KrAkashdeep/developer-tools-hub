@@ -1,4 +1,4 @@
-// Core type definitions for multiDevtools
+// Core type definitions for multidevTools
 
 export interface Tool {
   id: string;
