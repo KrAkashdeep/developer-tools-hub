@@ -38,8 +38,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  // Get popular tools (tools marked as popular or first 6 tools)
-  const popularTools = tools.filter(tool => tool.popular).slice(0, 6) || tools.slice(0, 6);
+  // Get popular tools (tools marked as popular or first 4 tools)
+  const popularTools = tools.filter(tool => tool.popular).slice(0, 4) || tools.slice(0, 4);
 
   return (
     <div className="min-h-screen">
@@ -139,7 +139,7 @@ export default function Home() {
           </div>
 
           <ResponsiveGrid type="categories" gap="md">
-            {categories.map((category) => {
+            {categories.slice(0, 6).map((category) => {
               const categoryToolCount = tools.filter(tool => tool.category === category.id).length;
               return (
                 <Link key={category.id} href="/tools" className="block group">
