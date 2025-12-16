@@ -21,127 +21,67 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create formatted email content
-    const emailSubject = `🔔 multidevTools Feedback from ${name}`;
-    const emailBody = `
-📧 NEW FEEDBACK FROM MULTIDEVTOOLS
+    // Get Formspree endpoint from environment
+    const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
+    
+    if (!formspreeEndpoint) {
+      return NextResponse.json(
+        { error: 'Formspree endpoint not configured' },
+        { status: 500 }
+      );
+    }
 
-👤 Contact Information:
-Name: ${name}
-Email: ${email}
-Date: ${new Date().toLocaleString()}
-
-💬 Message:
-${message}
-
----
-Reply to this email to respond directly to ${name} at ${email}
-Sent from multidevTools Feedback Form
-    `;
-
-    // Use Netlify Forms approach (works with any hosting)
+    // Send to Formspree
     try {
-      const netlifyResponse = await fetch('https://api.netlify.com/build_hooks/your-hook-id', {
+      const formspreeResponse = await fetch(formspreeEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
-          name,
-          email,
-          message,
-          subject: emailSubject
+          name: name,
+          email: email,
+          message: `${message}`,
+          _replyto: '',
+          _subject: `Feedback from ${name}`
         })
       });
-    } catch (netlifyError) {
-      // Netlify failed, continue to other methods
-    }
 
-    // Use IFTTT webhook (free and reliable) - only if key is provided
-    const iftttWebhookKey = process.env.IFTTT_WEBHOOK_KEY;
-    if (iftttWebhookKey && iftttWebhookKey !== 'demo_key') {
-      try {
-        const iftttResponse = await fetch(`https://maker.ifttt.com/trigger/devtools_feedback/with/key/${iftttWebhookKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            value1: name,
-            value2: email,
-            value3: message
-          })
-        });
+      const formspreeData = await formspreeResponse.json();
 
-        if (iftttResponse.ok) {
-          console.log('✅ Feedback sent successfully via IFTTT');
-          console.log(`From: ${name} (${email})`);
-          console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
-          
-          return NextResponse.json(
-            { message: 'Feedback sent successfully!' },
-            { status: 200 }
-          );
-        }
-      } catch (iftttError) {
-        console.log('IFTTT failed:', iftttError);
+      if (formspreeResponse.ok) {
+        console.log('✅ Feedback sent successfully via Formspree');
+        console.log(`From: ${name} (${email})`);
+        console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
+        
+        return NextResponse.json(
+          { message: 'Feedback submitted successfully. Thank you for taking the time.' },
+          { status: 200 }
+        );
+      } else {
+        console.error('Formspree error:', formspreeData);
+        throw new Error(`Formspree error: ${formspreeData.error || 'Unknown error'}`);
       }
+    } catch (formspreeError) {
+      console.error('❌ Formspree failed:', formspreeError);
+      
+      // Fallback: Log to console for manual processing
+      console.log('=== 📧 NEW FEEDBACK RECEIVED (FALLBACK) ===');
+      console.log('📅 Date:', new Date().toLocaleString());
+      console.log('👤 Name:', name);
+      console.log('📧 Email:', email);
+      console.log('💬 Message:', message);
+      console.log('=============================');
+
+      return NextResponse.json(
+        { 
+          message: 'Feedback received! There was an issue with the email service, but your message has been logged.',
+          fallback: true
+        },
+        { status: 200 }
+      );
     }
-
-    // Use simple HTTP POST to a webhook service
-    try {
-      const webhookUrl = process.env.WEBHOOK_URL;
-      if (webhookUrl) {
-        const webhookResponse = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: 'akash.work42@gmail.com',
-            subject: emailSubject,
-            name,
-            email,
-            message,
-            timestamp: new Date().toISOString()
-          })
-        });
-
-        if (webhookResponse.ok) {
-          console.log('✅ Feedback sent successfully via webhook');
-          return NextResponse.json(
-            { message: 'Feedback sent successfully!' },
-            { status: 200 }
-          );
-        }
-      }
-    } catch (webhookError) {
-      console.log('Webhook failed:', webhookError);
-    }
-
-    // Final approach: Log to console and create mailto link
-    console.log('=== 📧 NEW FEEDBACK RECEIVED ===');
-    console.log('📅 Date:', new Date().toLocaleString());
-    console.log('👤 Name:', name);
-    console.log('📧 Email:', email);
-    console.log('💬 Message:', message);
-    console.log('');
-    console.log('🔗 Quick Reply Link:');
-    const replyLink = `mailto:${email}?subject=Re: multidevTools Feedback&body=Hi ${name},%0D%0A%0D%0AThank you for your feedback about multidevTools!%0D%0A%0D%0A`;
-    console.log(replyLink);
-    console.log('');
-    console.log('📋 Copy this to email akash.work42@gmail.com:');
-    console.log('Subject:', emailSubject);
-    console.log('Body:', emailBody);
-    console.log('=============================');
-
-    return NextResponse.json(
-      { 
-        message: 'Feedback received successfully! Check your console for details.',
-        details: {
-          name,
-          email,
-          message,
-          timestamp: new Date().toISOString(),
-          replyLink
-        }
-      },
-      { status: 200 }
-    );
 
   } catch (error) {
     console.error('❌ Error processing feedback:', error);

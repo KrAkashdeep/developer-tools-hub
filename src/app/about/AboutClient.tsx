@@ -235,7 +235,7 @@ export default function AboutClient() {
 
                 {submitStatus === 'success' && (
                   <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg">
-                    ✅ Thank you! Your feedback has been sent successfully. We'll get back to you soon!
+                    Feedback submitted successfully. Thank you for taking the time.
                   </div>
                 )}
 
