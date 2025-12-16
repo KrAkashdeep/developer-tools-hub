@@ -16,7 +16,7 @@ export default function CategoryCard({ category, className = '' }: CategoryCardP
   const toolCount = getToolsByCategory(category.slug).length;
 
   return (
-    <Link href={`/category/${category.slug}`}>
+    <Link href={`/tools?category=${category.slug}`}>
       <Card className={`h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer ${className}`}>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-3">

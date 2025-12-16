@@ -57,51 +57,51 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Categories</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/category/formatters" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/tools?category=formatters" className="text-muted-foreground hover:text-foreground transition-colors">
                   Formatters
                 </Link>
               </li>
               <li>
-                <Link href="/category/validators" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/tools?category=validators" className="text-muted-foreground hover:text-foreground transition-colors">
                   Validators
                 </Link>
               </li>
               <li>
-                <Link href="/category/converters" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/tools?category=converters" className="text-muted-foreground hover:text-foreground transition-colors">
                   Converters
                 </Link>
               </li>
               <li>
-                <Link href="/category/encoders" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/tools?category=encoders" className="text-muted-foreground hover:text-foreground transition-colors">
                   Encoders
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Links */}
+          {/* Quick Actions */}
           <div>
-            <h3 className="font-semibold mb-4">Resources</h3>
+            <h3 className="font-semibold mb-4">Quick Actions</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/tools" className="text-muted-foreground hover:text-foreground transition-colors">
-                  All Tools
+                  Browse All Tools
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  API Documentation
-                </a>
+                <Link href="/tools/text-case-converter" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Text Case Converter
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
-                </a>
+                <Link href="/tools/password-generator" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Password Generator
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Terms of Service
-                </a>
+                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Send Feedback
+                </Link>
               </li>
             </ul>
           </div>

@@ -159,7 +159,7 @@ export default function AllToolsClient() {
       
       // If closing the category, just remove it
       if (isCurrentlyExpanded) {
-        const newExpanded = prev.filter(id => id !== categoryId);
+        const newExpanded = [];
         
         // Save immediately when toggling
         if (isInitialized) {
@@ -175,6 +175,14 @@ export default function AllToolsClient() {
         if (isInitialized) {
           localStorage.setItem('devtools-expanded-categories', JSON.stringify(newExpanded));
         }
+        
+        // Scroll to the category after a short delay to ensure it's expanded
+        setTimeout(() => {
+          const element = document.getElementById(`category-${categoryId}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
         
         return newExpanded;
       }
@@ -217,15 +225,8 @@ export default function AllToolsClient() {
                     variant={expandedCategories.includes(category.id) ? "default" : "outline"}
                     size="sm"
                     onClick={() => {
-                      // Expand the category if not already expanded
-                      if (!expandedCategories.includes(category.id)) {
-                        toggleCategory(category.id);
-                      }
-                      // Scroll to the category section
-                      setTimeout(() => {
-                        const element = document.getElementById(`category-${category.id}`);
-                        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }, 100);
+                      // Always toggle the category (this will close others and open this one)
+                      toggleCategory(category.id);
                     }}
                     className="text-xs flex items-center gap-1"
                   >

@@ -36,7 +36,7 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
   const colorClass = colorClasses[category.color as keyof typeof colorClasses] || colorClasses.blue;
 
   return (
-    <Link href={`/category/${category.slug}`} className="block h-full">
+    <Link href={`/tools?category=${category.slug}`} className="block h-full">
       <Card className={cn(
         'group transition-all duration-200 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br h-full',
         colorClass,
