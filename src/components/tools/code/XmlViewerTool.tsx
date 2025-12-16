@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -180,7 +180,7 @@ export default function XmlViewerTool() {
     setExpandedNodes(newExpanded);
   };
 
-  const renderXmlNode = (node: XmlNode, depth = 0, nodeId = 'root'): JSX.Element => {
+  const renderXmlNode = (node: XmlNode, depth = 0, nodeId = 'root'): React.JSX.Element => {
     const hasChildren = node.children.length > 0;
     const isExpanded = expandedNodes.has(nodeId);
     const indent = depth * 20;
