@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HexToRgbTool() {
   const [input, setInput] = useState('');
@@ -71,16 +72,44 @@ export default function HexToRgbTool() {
           placeholder={error ? `Error: ${error}` : 'RGB values will appear here...'}
         />
       </ToolLayout>
-      <Card>
-        <CardHeader>
-          <CardTitle>HEX to RGB Converter</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Converts hexadecimal color codes to RGB values.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="HEX to RGB Converter Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Converts hexadecimal color codes to RGB values for use in CSS, design tools, and programming.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Input format:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>6-digit hex codes (e.g., #FF5733 or FF5733)</li>
+              <li>With or without the # symbol</li>
+              <li>Case insensitive (A-F or a-f)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Output format:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>RGB values (0-255 for each channel)</li>
+              <li>CSS rgb() format</li>
+              <li>Individual Red, Green, Blue values</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Converting design colors to CSS</li>
+              <li>Programming graphics applications</li>
+              <li>Color manipulation and analysis</li>
+              <li>Cross-platform color compatibility</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CssMinifierTool() {
   const [input, setInput] = useState('');
@@ -135,17 +136,14 @@ body {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use CSS Minifier</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="CSS Minifier Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Removes unnecessary whitespace, comments, and formatting from CSS code 
               to reduce file size while maintaining functionality.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -168,8 +166,8 @@ body {
               <li>Save bandwidth in web applications</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

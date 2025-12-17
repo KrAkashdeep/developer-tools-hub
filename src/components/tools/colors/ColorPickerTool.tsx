@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import CopyButton from '@/components/common/CopyButton';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface ColorValues {
   hex: string;
@@ -284,11 +285,8 @@ export default function ColorPickerTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About Color Picker</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Color Picker Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Color Formats:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -321,8 +319,8 @@ export default function ColorPickerTool() {
               <li>UI/UX design workflows</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

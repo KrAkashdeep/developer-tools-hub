@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import CopyButton from '@/components/common/CopyButton';
 import { IconRefresh } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function RandomColorTool() {
   const [colors, setColors] = useState<string[]>([]);
@@ -53,16 +54,38 @@ export default function RandomColorTool() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>About Random Color Generator</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Generates random hexadecimal colors for design inspiration, testing, or placeholder content.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Random Color Generator Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Generates random hexadecimal colors for design inspiration, testing, or placeholder content.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Generate multiple random colors at once</li>
+              <li>Copy individual color codes with one click</li>
+              <li>Visual color preview with hex codes</li>
+              <li>Refresh to generate new color sets</li>
+              <li>Perfect for design mockups and prototypes</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Design inspiration and color exploration</li>
+              <li>Placeholder colors for development</li>
+              <li>Testing color combinations</li>
+              <li>Creating diverse color palettes</li>
+              <li>UI/UX design experimentation</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

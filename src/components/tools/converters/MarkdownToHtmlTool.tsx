@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function MarkdownToHtmlTool() {
   const [input, setInput] = useState('');
@@ -77,16 +78,76 @@ Here's a [link](https://example.com) and some \`inline code\`.
         />
       </ToolLayout>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Markdown to HTML Converter</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Converts Markdown syntax to HTML. Supports headers, bold, italic, links, and inline code.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      {/* Documentation */}
+      <CollapsibleGuide title="Markdown to HTML Converter Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">Supported Markdown Syntax:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Headers:</strong> # ## ### → h1, h2, h3</li>
+              <li><strong>Bold:</strong> **text** or __text__ → &lt;strong&gt;text&lt;/strong&gt;</li>
+              <li><strong>Italic:</strong> *text* or _text_ → &lt;em&gt;text&lt;/em&gt;</li>
+              <li><strong>Inline code:</strong> `code` → &lt;code&gt;code&lt;/code&gt;</li>
+              <li><strong>Links:</strong> [text](url) → &lt;a href="url"&gt;text&lt;/a&gt;</li>
+              <li><strong>Line breaks:</strong> New lines → &lt;br&gt;</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Converts basic Markdown syntax to HTML</li>
+              <li>Real-time conversion as you type</li>
+              <li>Supports common formatting elements</li>
+              <li>Clean HTML output</li>
+              <li>Preserves text structure and formatting</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use Cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Converting Markdown documentation to HTML</li>
+              <li>Preparing content for web publishing</li>
+              <li>Creating HTML from README files</li>
+              <li>Converting blog posts from Markdown to HTML</li>
+              <li>Generating HTML for email templates</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Example:</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h5 className="font-semibold text-sm mb-2">Markdown Input:</h5>
+                <pre className="bg-muted p-3 rounded text-xs font-mono">
+{`# Title
+**Bold text** and *italic text*
+[Link](https://example.com)`}
+                </pre>
+              </div>
+              <div>
+                <h5 className="font-semibold text-sm mb-2">HTML Output:</h5>
+                <pre className="bg-muted p-3 rounded text-xs font-mono">
+{`<h1>Title</h1>
+<strong>Bold text</strong> and <em>italic text</em>
+<a href="https://example.com">Link</a>`}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Limitations:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Basic implementation - doesn't support all Markdown features</li>
+              <li>No support for tables, code blocks, or complex lists</li>
+              <li>Limited to common formatting elements</li>
+              <li>For full Markdown support, consider using a dedicated library</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

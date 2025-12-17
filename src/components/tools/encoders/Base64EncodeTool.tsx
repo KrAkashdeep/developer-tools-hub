@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function Base64EncodeTool() {
   const [input, setInput] = useState('');
@@ -55,17 +56,14 @@ export default function Base64EncodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use Base64 Encoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Base64 Encoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts text or binary data into Base64 encoding, which represents binary data 
               in ASCII string format using a radix-64 representation.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -97,8 +95,8 @@ export default function Base64EncodeTool() {
               <div>Output: "SGVsbG8gV29ybGQ="</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

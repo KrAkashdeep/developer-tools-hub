@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CssValidatorTool() {
   const [input, setInput] = useState('');
@@ -182,11 +183,8 @@ body {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>CSS Validator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="CSS Validator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it validates:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -228,8 +226,8 @@ body {
               <li>Check vendor prefix requirements</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

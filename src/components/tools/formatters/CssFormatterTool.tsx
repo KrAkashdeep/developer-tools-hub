@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CssFormatterTool() {
   const [input, setInput] = useState('');
@@ -59,16 +60,38 @@ export default function CssFormatterTool() {
           placeholder="Formatted CSS will appear here..."
         />
       </ToolLayout>
-      <Card>
-        <CardHeader>
-          <CardTitle>CSS Formatter</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Formats and beautifies CSS code with proper indentation and spacing.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="CSS Formatter Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Formats and beautifies CSS code with proper indentation, spacing, and structure for better readability.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Proper indentation for nested rules</li>
+              <li>Consistent spacing around selectors and properties</li>
+              <li>Line breaks for better readability</li>
+              <li>Preserves CSS functionality while improving format</li>
+              <li>Real-time formatting as you type</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Clean up minified CSS code</li>
+              <li>Standardize CSS formatting in projects</li>
+              <li>Improve code readability for debugging</li>
+              <li>Prepare CSS for code reviews</li>
+              <li>Educational purposes and learning CSS structure</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

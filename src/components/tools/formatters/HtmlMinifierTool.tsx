@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HtmlMinifierTool() {
   const [input, setInput] = useState('');
@@ -87,16 +88,38 @@ export default function HtmlMinifierTool() {
           )}
         </div>
       </ToolLayout>
-      <Card>
-        <CardHeader>
-          <CardTitle>HTML Minifier</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Removes unnecessary whitespace and comments from HTML to reduce file size.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="HTML Minifier Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Removes unnecessary whitespace, comments, and formatting from HTML to reduce file size and improve loading performance.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Removes extra whitespace and line breaks</li>
+              <li>Strips HTML comments</li>
+              <li>Preserves functionality while reducing size</li>
+              <li>Shows compression statistics</li>
+              <li>Real-time minification as you type</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Optimize HTML for production websites</li>
+              <li>Reduce bandwidth usage</li>
+              <li>Improve page loading speed</li>
+              <li>Prepare HTML for deployment</li>
+              <li>Email template optimization</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

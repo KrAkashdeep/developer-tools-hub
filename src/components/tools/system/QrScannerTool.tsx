@@ -4,21 +4,22 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { IconCamera, IconCameraOff, IconUpload, IconX, IconCopy, IconClock } from '@tabler/icons-react';
+import { IconCamera, IconCameraOff, IconUpload, IconX, IconCopy, IconShield, IconAlertTriangle } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
-// jsQR types
-interface QRCode {
-  data: string;
-  location: {
-    topLeftCorner: { x: number; y: number };
-    topRightCorner: { x: number; y: number };
-    bottomLeftCorner: { x: number; y: number };
-    bottomRightCorner: { x: number; y: number };
-  };
+// html5-qrcode types
+interface Html5QrcodeScanner {
+  render: (
+    qrCodeSuccessCallback: (decodedText: string, decodedResult: any) => void,
+    qrCodeErrorCallback?: (errorMessage: string) => void
+  ) => void;
+  clear: () => Promise<void>;
+  getState: () => number;
 }
 
-// Dynamic import for jsQR
-let jsQR: ((data: Uint8ClampedArray, width: number, height: number, options?: any) => QRCode | null) | null = null;
+// Dynamic import for html5-qrcode
+let Html5Qrcode: any = null;
+let Html5QrcodeScanner: any = null;
 
 interface ScannedItem {
   data: string;
@@ -29,294 +30,285 @@ export default function QrScannerTool() {
   const [isScanning, setIsScanning] = useState(false);
   const [scannedData, setScannedData] = useState<ScannedItem[]>([]);
   const [error, setError] = useState('');
-  const [hasCamera, setHasCamera] = useState(false);
   const [isLibraryLoaded, setIsLibraryLoaded] = useState(false);
   const [scanningStatus, setScanningStatus] = useState('Ready to scan');
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
+  const [isSecureContext, setIsSecureContext] = useState(false);
+  const [cameraPermission, setCameraPermission] = useState<'unknown' | 'granted' | 'denied'>('unknown');
+  
+  const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const animationFrameRef = useRef<number | null>(null);
+  const readerElementId = 'qr-reader';
 
   useEffect(() => {
-    // Load jsQR library dynamically
-    const loadJsQR = async () => {
+    // Check secure context (HTTPS or localhost)
+    const checkSecureContext = () => {
+      const isSecure = window.isSecureContext || 
+                      window.location.protocol === 'https:' || 
+                      window.location.hostname === 'localhost' ||
+                      window.location.hostname === '127.0.0.1';
+      setIsSecureContext(isSecure);
+      
+      if (!isSecure) {
+        setError('Camera access requires HTTPS or localhost. Please use a secure connection.');
+      }
+    };
+
+    // Load html5-qrcode library dynamically
+    const loadHtml5Qrcode = async () => {
       try {
-        // Check if jsQR is already loaded
-        if ((window as any).jsQR) {
-          jsQR = (window as any).jsQR;
+        // Check if html5-qrcode is already loaded
+        if ((window as any).Html5Qrcode) {
+          Html5Qrcode = (window as any).Html5Qrcode;
           setIsLibraryLoaded(true);
           return;
         }
 
-        // Try to load jsQR from CDN
+        // Load html5-qrcode from CDN
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+        script.src = 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';
         script.onload = () => {
-          jsQR = (window as any).jsQR;
+          Html5Qrcode = (window as any).Html5Qrcode;
+          Html5QrcodeScanner = (window as any).Html5QrcodeScanner;
           setIsLibraryLoaded(true);
+          console.log('html5-qrcode library loaded successfully');
         };
         script.onerror = () => {
           setError('Failed to load QR scanning library. Please check your internet connection.');
         };
         document.head.appendChild(script);
       } catch (err) {
-        setError('Failed to initialize QR scanner');
+        setError('Failed to initialize QR scanner library');
       }
     };
 
-    loadJsQR();
+    // Check camera permissions
+    const checkCameraPermission = async () => {
+      if (!navigator.permissions) {
+        setCameraPermission('unknown');
+        return;
+      }
 
-    // Check if camera is available with better detection
-    const checkCamera = async () => {
       try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          setHasCamera(false);
-          return;
-        }
-
-        // Try to enumerate devices first
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const hasVideoInput = devices.some(device => device.kind === 'videoinput');
+        const permission = await navigator.permissions.query({ name: 'camera' as PermissionName });
+        setCameraPermission(permission.state as 'granted' | 'denied');
         
-        if (!hasVideoInput) {
-          setHasCamera(false);
-          return;
-        }
-
-        // Test camera access with minimal constraints
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { width: 320, height: 240 } 
+        permission.addEventListener('change', () => {
+          setCameraPermission(permission.state as 'granted' | 'denied');
         });
-        
-        // Immediately stop the test stream
-        stream.getTracks().forEach(track => track.stop());
-        setHasCamera(true);
       } catch (err) {
-        console.log('Camera check failed:', err);
-        setHasCamera(false);
+        console.log('Permission query not supported:', err);
+        setCameraPermission('unknown');
       }
     };
 
-    checkCamera();
+    checkSecureContext();
+    loadHtml5Qrcode();
+    checkCameraPermission();
+
+    // Add CSS for html5-qrcode styling
+    const addCustomStyles = () => {
+      const styleId = 'qr-scanner-styles';
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+          #${readerElementId} {
+            border: none !important;
+            background: transparent !important;
+          }
+          
+          #${readerElementId} video {
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            border: 2px solid #e5e7eb !important;
+            background-color: #000 !important;
+            display: block !important;
+            max-height: 400px !important;
+          }
+          
+          #${readerElementId} > div {
+            border: none !important;
+            background: transparent !important;
+          }
+          
+          #${readerElementId} canvas {
+            border-radius: 8px !important;
+          }
+          
+          #${readerElementId} select {
+            margin: 10px 0 !important;
+            padding: 5px !important;
+            border-radius: 4px !important;
+            border: 1px solid #ccc !important;
+          }
+          
+          #${readerElementId} button {
+            margin: 5px !important;
+            padding: 8px 16px !important;
+            border-radius: 6px !important;
+            border: none !important;
+            background: #3b82f6 !important;
+            color: white !important;
+            cursor: pointer !important;
+          }
+          
+          #${readerElementId} button:hover {
+            background: #2563eb !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    };
+
+    addCustomStyles();
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      // Cleanup scanner on unmount
+      if (scannerRef.current) {
+        stopScanning();
       }
     };
   }, []);
 
   const startScanning = async () => {
-    if (!isLibraryLoaded) {
+    // Check prerequisites
+    if (!isSecureContext) {
+      setError('Camera access requires HTTPS or localhost. Please use a secure connection.');
+      return;
+    }
+
+    if (!isLibraryLoaded || !Html5QrcodeScanner) {
       setError('QR scanning library is not loaded yet. Please wait and try again.');
+      return;
+    }
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setError('Camera API not supported in this browser. Please use a modern browser.');
       return;
     }
 
     try {
       setError('');
-      setScanningStatus('Requesting camera access...');
-      
-      // Try different constraint configurations for better compatibility
-      const constraints = [
-        // First try with back camera
-        {
-          video: {
-            facingMode: { exact: 'environment' },
-            width: { ideal: 1280, max: 1920 },
-            height: { ideal: 720, max: 1080 }
-          }
-        },
-        // Fallback to any camera
-        {
-          video: {
-            facingMode: 'environment',
-            width: { ideal: 640, max: 1280 },
-            height: { ideal: 480, max: 720 }
-          }
-        },
-        // Basic video constraints
-        {
-          video: {
-            width: { ideal: 640 },
-            height: { ideal: 480 }
-          }
-        },
-        // Minimal constraints
-        { video: true }
-      ];
+      setScanningStatus('Initializing camera...');
 
-      let stream = null;
-      let lastError = null;
-
-      for (const constraint of constraints) {
-        try {
-          setScanningStatus('Trying camera configuration...');
-          stream = await navigator.mediaDevices.getUserMedia(constraint);
-          break;
-        } catch (err) {
-          lastError = err;
-          console.log('Camera constraint failed, trying next...', err);
-        }
+      // Stop any existing scanner
+      if (scannerRef.current) {
+        await stopScanning();
       }
 
-      if (!stream) {
-        throw lastError || new Error('No camera access');
-      }
-      
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        setIsScanning(true);
-        setScanningStatus('Camera ready - point at QR code');
+      // Success callback - called when QR code is detected
+      const onScanSuccess = (decodedText: string, decodedResult: any) => {
+        console.log('QR Code detected:', decodedText);
+        setScanningStatus('QR Code detected! Stopping scanner...');
         
-        // Wait for video to be ready
-        videoRef.current.onloadedmetadata = () => {
-          if (videoRef.current) {
-            // Add a small delay to ensure video is fully loaded
-            setTimeout(() => {
-              if (videoRef.current) {
-                videoRef.current.play().then(() => {
-                  setScanningStatus('Camera active - scanning for QR codes...');
-                  scanForQRCode();
-                }).catch((playError) => {
-                  console.error('Video play failed:', playError);
-                  setError('Failed to start video playback. Please try again or refresh the page.');
-                });
-              }
-            }, 100);
-          }
-        };
+        // Add scanned data
+        addScannedData(decodedText);
+        
+        // Stop scanning after successful scan
+        stopScanning();
+      };
 
-        // Also handle the case where metadata is already loaded
-        if (videoRef.current.readyState >= 1) {
-          setTimeout(() => {
-            if (videoRef.current) {
-              videoRef.current.play().then(() => {
-                setScanningStatus('Camera active - scanning for QR codes...');
-                scanForQRCode();
-              }).catch((playError) => {
-                console.error('Video play failed:', playError);
-                setError('Failed to start video playback. Please try again or refresh the page.');
-              });
-            }
-          }, 100);
+      // Error callback - called when scanning fails (optional)
+      const onScanFailure = (error: string) => {
+        // Don't log every scan failure as it's normal when no QR code is visible
+        // Only update status if we're still scanning
+        if (isScanning) {
+          setScanningStatus('Scanning for QR codes...');
         }
-      }
+      };
+
+      // Scanner configuration
+      const config = {
+        fps: 10, // Frames per second
+        qrbox: { width: 250, height: 250 }, // QR code scanning box
+        aspectRatio: 1.0,
+        disableFlip: false,
+        videoConstraints: {
+          facingMode: "environment", // Prefer back camera on mobile
+          width: { ideal: 640, max: 1280 },
+          height: { ideal: 480, max: 720 }
+        },
+        // UI configuration
+        showTorchButtonIfSupported: true,
+        showZoomSliderIfSupported: true,
+        defaultZoomValueIfSupported: 2,
+      };
+
+      // Create new scanner instance with UI
+      scannerRef.current = new Html5QrcodeScanner(readerElementId, config, false);
+
+      // Render the scanner (this will show the camera UI)
+      scannerRef.current.render(onScanSuccess, onScanFailure);
+
+      setIsScanning(true);
+      setScanningStatus('Camera starting - please allow camera access');
+      setCameraPermission('granted');
+
+      // Monitor for successful camera start
+      setTimeout(() => {
+        const videoElement = document.querySelector(`#${readerElementId} video`) as HTMLVideoElement;
+        if (videoElement) {
+          setScanningStatus('Camera active - point at QR code to scan');
+          console.log('Camera video element found and active');
+        } else {
+          setScanningStatus('Waiting for camera to start...');
+        }
+      }, 2000);
+
     } catch (err) {
       console.error('Camera access error:', err);
       let errorMessage = 'Unable to access camera. ';
       
       if (err instanceof Error) {
-        if (err.name === 'NotAllowedError') {
-          errorMessage += 'Please allow camera permissions and try again.';
-        } else if (err.name === 'NotFoundError') {
-          errorMessage += 'No camera found on this device.';
-        } else if (err.name === 'NotSupportedError') {
-          errorMessage += 'Camera not supported in this browser.';
+        if (err.message.includes('NotAllowedError') || err.message.includes('Permission denied')) {
+          errorMessage = 'Camera permission denied. Please allow camera access and try again.';
+          setCameraPermission('denied');
+        } else if (err.message.includes('NotFoundError')) {
+          errorMessage = 'No camera found on this device.';
+        } else if (err.message.includes('NotSupportedError')) {
+          errorMessage = 'Camera not supported in this browser.';
+        } else if (err.message.includes('NotReadableError')) {
+          errorMessage = 'Camera is already in use by another application.';
+        } else if (err.message.includes('OverconstrainedError')) {
+          errorMessage = 'Camera constraints not supported. Try a different device.';
         } else {
-          errorMessage += 'Please check permissions and try again.';
+          errorMessage += err.message;
         }
-      } else {
-        errorMessage += 'Please check permissions and try again.';
       }
       
       setError(errorMessage);
       setScanningStatus('Camera access failed');
+      setIsScanning(false);
+      
+      // Clean up scanner on error
+      if (scannerRef.current) {
+        try {
+          await scannerRef.current.clear();
+        } catch (clearError) {
+          console.log('Error clearing scanner:', clearError);
+        }
+        scannerRef.current = null;
+      }
     }
   };
 
-  const stopScanning = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
-      streamRef.current = null;
+  const stopScanning = async () => {
+    if (scannerRef.current) {
+      try {
+        await scannerRef.current.clear();
+        console.log('Scanner stopped and cleared successfully');
+      } catch (err) {
+        console.log('Error stopping scanner:', err);
+      }
+      scannerRef.current = null;
     }
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
-    }
+    
     setIsScanning(false);
     setScanningStatus('Scanning stopped');
   };
 
-  const scanForQRCode = () => {
-    if (!isScanning || !videoRef.current || !canvasRef.current || !jsQR) {
-      return;
-    }
 
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    const overlayCanvas = overlayCanvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const overlayCtx = overlayCanvas?.getContext('2d');
-
-    if (!ctx || video.videoWidth === 0 || video.videoHeight === 0) {
-      animationFrameRef.current = requestAnimationFrame(scanForQRCode);
-      return;
-    }
-
-    // Set canvas dimensions to match video
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    
-    if (overlayCanvas) {
-      overlayCanvas.width = video.videoWidth;
-      overlayCanvas.height = video.videoHeight;
-    }
-
-    // Draw video frame to canvas
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    // Get image data for QR scanning
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    
-    try {
-      // Scan for QR code using jsQR
-      const qrCode = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert'
-      });
-
-      // Clear overlay
-      if (overlayCtx) {
-        overlayCtx.clearRect(0, 0, overlayCanvas!.width, overlayCanvas!.height);
-      }
-
-      if (qrCode) {
-        setScanningStatus('QR Code detected!');
-        
-        // Draw detection overlay
-        if (overlayCtx) {
-          overlayCtx.strokeStyle = '#00ff00';
-          overlayCtx.lineWidth = 4;
-          overlayCtx.beginPath();
-          overlayCtx.moveTo(qrCode.location.topLeftCorner.x, qrCode.location.topLeftCorner.y);
-          overlayCtx.lineTo(qrCode.location.topRightCorner.x, qrCode.location.topRightCorner.y);
-          overlayCtx.lineTo(qrCode.location.bottomRightCorner.x, qrCode.location.bottomRightCorner.y);
-          overlayCtx.lineTo(qrCode.location.bottomLeftCorner.x, qrCode.location.bottomLeftCorner.y);
-          overlayCtx.closePath();
-          overlayCtx.stroke();
-        }
-
-        // Add scanned data
-        addScannedData(qrCode.data);
-        
-        // Brief pause after successful scan
-        setTimeout(() => {
-          setScanningStatus('Scanning for QR codes...');
-        }, 1000);
-      } else {
-        setScanningStatus('Scanning for QR codes...');
-      }
-    } catch (err) {
-      setScanningStatus('Scanning error - continuing...');
-    }
-
-    // Continue scanning
-    if (isScanning) {
-      animationFrameRef.current = requestAnimationFrame(scanForQRCode);
-    }
-  };
 
   const addScannedData = (data: string) => {
     setScannedData(prev => {
@@ -334,51 +326,49 @@ export default function QrScannerTool() {
     });
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      setError('Please select a valid image file');
+      setError('Please select a valid image file (JPG, PNG, etc.)');
       return;
     }
 
-    if (!isLibraryLoaded || !jsQR) {
+    if (!isLibraryLoaded || !Html5Qrcode) {
       setError('QR scanning library is not loaded yet. Please wait and try again.');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        if (canvasRef.current) {
-          const canvas = canvasRef.current;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            
-            try {
-              const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-              const qrCode = jsQR!(imageData.data, imageData.width, imageData.height);
-              
-              if (qrCode) {
-                addScannedData(qrCode.data);
-                setError('');
-              } else {
-                setError('No QR code found in the uploaded image');
-              }
-            } catch (err) {
-              setError('Could not process the uploaded image');
-            }
-          }
-        }
-      };
-      img.src = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
+    try {
+      setError('');
+      setScanningStatus('Processing uploaded image...');
+
+      // Use html5-qrcode to scan the uploaded file
+      const html5QrCode = new Html5Qrcode(readerElementId);
+      
+      const result = await html5QrCode.scanFile(file, true);
+      
+      if (result) {
+        addScannedData(result);
+        setScanningStatus('QR code found in uploaded image');
+        setError('');
+      } else {
+        setError('No QR code found in the uploaded image');
+        setScanningStatus('No QR code detected');
+      }
+      
+      // Clean up
+      await html5QrCode.clear();
+      
+    } catch (err) {
+      console.error('File scan error:', err);
+      setError('Could not process the uploaded image. Please try a different image.');
+      setScanningStatus('Image processing failed');
+    }
+    
+    // Reset file input
+    event.target.value = '';
   };
 
   const copyToClipboard = async (text: string) => {
@@ -431,12 +421,29 @@ export default function QrScannerTool() {
 
   return (
     <div className="space-y-6">
+      {/* Security Warning */}
+      {!isSecureContext && (
+        <Card className="border-amber-200 bg-amber-50 dark:bg-amber-900/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <IconShield className="h-5 w-5 text-amber-600" />
+              <div>
+                <div className="font-medium text-amber-800 dark:text-amber-200">Secure Connection Required</div>
+                <div className="text-sm text-amber-700 dark:text-amber-300">
+                  Camera access requires HTTPS or localhost. Please use a secure connection.
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Library Status */}
       {!isLibraryLoaded && (
         <Card>
           <CardContent className="pt-6">
             <div className="text-center">
-              <div className="text-muted-foreground">Loading QR scanning library...</div>
+              <div className="text-muted-foreground">Loading html5-qrcode library...</div>
             </div>
           </CardContent>
         </Card>
@@ -447,25 +454,37 @@ export default function QrScannerTool() {
         <CardHeader>
           <CardTitle>QR Code Scanner</CardTitle>
           <CardDescription>
-            {hasCamera ? 'Use your camera to scan QR codes in real-time' : 'Camera not available - upload an image instead'}
+            Click "Start Camera" to scan QR codes in real-time, or upload an image file
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Permission Status */}
+          {cameraPermission === 'denied' && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+              <div className="flex items-center gap-2">
+                <IconAlertTriangle className="h-4 w-4 text-red-600" />
+                <div className="text-sm text-red-800 dark:text-red-200">
+                  Camera permission denied. Please allow camera access in your browser settings.
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex gap-2">
             <Button
               onClick={isScanning ? stopScanning : startScanning}
               className="flex items-center gap-2"
-              disabled={!isLibraryLoaded}
+              disabled={!isLibraryLoaded || !isSecureContext}
             >
               {isScanning ? (
                 <>
                   <IconCameraOff className="h-4 w-4" />
-                  Stop Scanning
+                  Stop Camera
                 </>
               ) : (
                 <>
                   <IconCamera className="h-4 w-4" />
-                  {hasCamera ? 'Start Camera' : 'Try Camera'}
+                  Start Camera
                 </>
               )}
             </Button>
@@ -489,59 +508,47 @@ export default function QrScannerTool() {
           </div>
 
           {/* Status */}
-          {isScanning && (
+          {(isScanning || scanningStatus !== 'Ready to scan') && (
             <div className="text-sm text-muted-foreground">
               Status: {scanningStatus}
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
-              <div className="text-destructive text-sm font-medium mb-2">Camera Error</div>
-              <div className="text-destructive text-sm">{error}</div>
-              {error.includes('permissions') && (
-                <div className="mt-2 text-xs text-muted-foreground">
-                  <strong>Troubleshooting:</strong>
-                  <ul className="list-disc list-inside mt-1 space-y-1">
-                    <li>Click the camera icon in your browser's address bar</li>
-                    <li>Select "Allow" for camera permissions</li>
-                    <li>Refresh the page and try again</li>
-                    <li>Make sure no other app is using your camera</li>
-                  </ul>
-                </div>
-              )}
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+              <div className="text-destructive text-sm font-medium mb-2">Error</div>
+              <div className="text-destructive text-sm mb-3">{error}</div>
+              
+              <div className="text-xs text-muted-foreground">
+                <strong>Troubleshooting:</strong>
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  <li>Ensure you're using HTTPS or localhost</li>
+                  <li>Allow camera permissions when prompted</li>
+                  <li>Close other apps using your camera</li>
+                  <li>Try refreshing the page</li>
+                  <li>Use "Upload Image" as an alternative</li>
+                </ul>
+              </div>
             </div>
           )}
 
-          {/* Camera View */}
+          {/* Camera View - Html5QrcodeScanner will inject the complete UI here */}
+          <div className="w-full max-w-lg mx-auto">
+            <div 
+              id={readerElementId}
+              className="w-full"
+            />
+          </div>
+          
+          {/* Status display */}
           {isScanning && (
-            <div className="relative w-full max-w-lg mx-auto">
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                className="w-full aspect-video object-cover rounded-lg border bg-black"
-                style={{ maxHeight: '400px' }}
-              />
-              <canvas
-                ref={overlayCanvasRef}
-                className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-lg"
-              />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-24 h-24 sm:w-32 sm:h-32 border-2 border-white border-dashed rounded-lg opacity-70"></div>
-              </div>
-              <div className="absolute bottom-2 left-2 right-2 bg-black bg-opacity-75 text-white text-xs sm:text-sm p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  {scanningStatus}
-                </div>
+            <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <span className="text-sm text-blue-800 dark:text-blue-200">{scanningStatus}</span>
               </div>
             </div>
           )}
-
-          {/* Hidden canvas for processing */}
-          <canvas ref={canvasRef} className="hidden" />
         </CardContent>
       </Card>
 
@@ -610,18 +617,26 @@ export default function QrScannerTool() {
       )}
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>QR Code Scanner Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="QR Code Scanner Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">How to use:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
               <li><strong>Camera scanning:</strong> Click "Start Camera" and point at a QR code</li>
               <li><strong>Image upload:</strong> Upload an image containing a QR code</li>
+              <li><strong>Auto-stop:</strong> Camera stops automatically after successful scan</li>
               <li><strong>Results:</strong> Scanned data appears below with type detection</li>
               <li><strong>Actions:</strong> Copy data or open URLs directly</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Requirements:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>HTTPS:</strong> Secure connection required (or localhost for development)</li>
+              <li><strong>Permissions:</strong> Camera access must be granted by user</li>
+              <li><strong>Modern browser:</strong> Chrome 53+, Firefox 36+, Safari 11+, Edge 12+</li>
+              <li><strong>Camera:</strong> Working camera device (built-in or external)</li>
             </ul>
           </div>
           
@@ -643,43 +658,44 @@ export default function QrScannerTool() {
           <div>
             <h4 className="font-semibold mb-2">Features:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Real-time QR code detection using jsQR library</li>
-              <li>Visual detection overlay showing QR code boundaries</li>
-              <li>Automatic duplicate prevention (5-second cooldown)</li>
+              <li>Real-time QR code detection using html5-qrcode library</li>
+              <li>Automatic camera selection (prefers back camera on mobile)</li>
+              <li>Auto-stop after successful scan to save battery</li>
               <li>Support for various QR code formats and encodings</li>
               <li>Timestamp tracking for all scanned codes</li>
               <li>One-click copy to clipboard</li>
+              <li>Duplicate prevention (5-second cooldown)</li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-2">Tips for better scanning:</h4>
+            <h4 className="font-semibold mb-2">Mobile optimization:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Ensure good lighting when using camera</li>
-              <li>Hold the camera steady and at appropriate distance</li>
-              <li>Make sure the QR code is within the dashed outline</li>
-              <li>For images, ensure the QR code is clear and not blurry</li>
-              <li>Try different angles if the QR code isn't detected immediately</li>
+              <li>Automatically uses back camera (environment facing)</li>
+              <li>Optimized video constraints for mobile devices</li>
+              <li>Touch-friendly interface</li>
+              <li>Works in mobile browsers (Safari, Chrome, Firefox)</li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-2">Privacy & Security:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>All scanning is done locally in your browser using jsQR</li>
+              <li>All scanning is done locally using html5-qrcode library</li>
               <li>No data is sent to external servers</li>
-              <li>Camera access requires your explicit permission</li>
+              <li>Camera access requires explicit user permission</li>
+              <li>Camera stops automatically after scan to protect privacy</li>
               <li>Be cautious when opening URLs from unknown QR codes</li>
               <li>Scan history is stored locally and can be cleared anytime</li>
             </ul>
           </div>
 
           <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded text-sm">
-            <strong>Production Ready:</strong> This scanner uses the jsQR library for accurate 
-            QR code detection with real-time processing and visual feedback.
+            <strong>Production Ready:</strong> This scanner uses the html5-qrcode library with 
+            proper camera management, mobile optimization, and security best practices.
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

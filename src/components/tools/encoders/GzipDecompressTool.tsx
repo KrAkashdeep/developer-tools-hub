@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function GzipDecompressTool() {
   const [input, setInput] = useState('');
@@ -106,17 +107,14 @@ export default function GzipDecompressTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>GZip Decompressor Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="GZip Decompressor Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Decompresses GZip compressed data that has been encoded as Base64 text. 
               Reverses the compression process to restore original content.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -150,13 +148,13 @@ export default function GzipDecompressTool() {
 
           <div>
             <h4 className="font-semibold mb-2">Browser compatibility:</h4>
-            <CardDescription className="text-sm">
+            <p className="text-sm text-muted-foreground">
               Uses modern browser APIs (DecompressionStream). Falls back to Base64 
               decoding in older browsers or when GZip decompression fails.
-            </CardDescription>
+            </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

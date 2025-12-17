@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function ShadeGeneratorTool() {
   const [baseColor, setBaseColor] = useState('#3b82f6');
@@ -234,11 +235,8 @@ ${shades.map((shade, index) => `  'shade-${index + 1}': '${shade.toUpperCase()}'
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About Shade Generator</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Shade Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What are Color Shades?</h4>
             <p className="text-sm text-muted-foreground">
@@ -278,8 +276,8 @@ ${shades.map((shade, index) => `  'shade-${index + 1}': '${shade.toUpperCase()}'
               <li>Save generated CSS variables for consistent usage</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

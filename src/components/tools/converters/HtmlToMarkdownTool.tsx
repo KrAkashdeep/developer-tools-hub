@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HtmlToMarkdownTool() {
   const [input, setInput] = useState('');
@@ -133,11 +134,8 @@ export default function HtmlToMarkdownTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>HTML to Markdown Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="HTML to Markdown Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Supported HTML Elements:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -183,8 +181,8 @@ export default function HtmlToMarkdownTool() {
               <li>Nested lists may require manual adjustment</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

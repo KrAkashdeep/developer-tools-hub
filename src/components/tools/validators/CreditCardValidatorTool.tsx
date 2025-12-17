@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CreditCardValidatorTool() {
   const [input, setInput] = useState('');
@@ -206,11 +207,8 @@ export default function CreditCardValidatorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Credit Card Validator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Credit Card Validator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it validates:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -235,22 +233,22 @@ export default function CreditCardValidatorTool() {
 
           <div>
             <h4 className="font-semibold mb-2">Luhn algorithm:</h4>
-            <CardDescription className="text-sm">
+            <p className="text-sm text-muted-foreground">
               The Luhn algorithm is a checksum formula used to validate credit card numbers. 
               It detects simple errors in typing or transmission of card numbers.
-            </CardDescription>
+            </p>
           </div>
 
           <div>
             <h4 className="font-semibold mb-2">Important note:</h4>
-            <CardDescription className="text-sm text-amber-600">
+            <p className="text-sm text-amber-600">
               This tool only validates the format and checksum of card numbers. 
               It does not verify if the card is active, has sufficient funds, or belongs to a real account.
               Never use real credit card numbers for testing.
-            </CardDescription>
+            </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

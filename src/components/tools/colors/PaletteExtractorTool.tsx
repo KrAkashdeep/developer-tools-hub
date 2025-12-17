@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import CopyButton from '@/components/common/CopyButton';
 import { IconUpload, IconX } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface ExtractedColor {
   hex: string;
@@ -369,11 +370,8 @@ ${extractedColors.map((color, index) => `  --palette-${index + 1}: ${color.hex.t
       )}
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About Palette Extractor</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Palette Extractor Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">How it Works:</h4>
             <p className="text-sm text-muted-foreground">
@@ -413,8 +411,8 @@ ${extractedColors.map((color, index) => `  --palette-${index + 1}: ${color.hex.t
               <li>Consider color accessibility when using extracted palettes</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

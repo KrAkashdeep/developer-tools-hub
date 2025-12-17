@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function GzipCompressTool() {
   const [input, setInput] = useState('');
@@ -128,17 +129,14 @@ export default function GzipCompressTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>GZip Compressor Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="GZip Compressor Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is GZip compression?</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               GZip is a file format and compression algorithm that reduces file size by finding 
               and eliminating redundancy in data. It's widely used for web content compression.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -173,13 +171,13 @@ export default function GzipCompressTool() {
 
           <div>
             <h4 className="font-semibold mb-2">Note:</h4>
-            <CardDescription className="text-sm">
+            <p className="text-sm text-muted-foreground">
               The compressed output is displayed as Base64 text for readability. 
               In real applications, compressed data is typically stored as binary.
-            </CardDescription>
+            </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

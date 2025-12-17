@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { IconRefresh, IconCopy, IconCheck } from '@tabler/icons-react';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function UuidGeneratorTool() {
   const [uuids, setUuids] = useState<string[]>([]);
@@ -126,17 +127,14 @@ export default function UuidGeneratorTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About UUID Generator</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="UUID Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is a UUID?</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               A Universally Unique Identifier (UUID) is a 128-bit number used to identify 
               information in computer systems. UUIDs are designed to be unique across space and time.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -163,12 +161,12 @@ export default function UuidGeneratorTool() {
             <div className="bg-muted p-3 rounded text-sm font-mono">
               xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
             </div>
-            <CardDescription className="mt-2">
+            <p className="text-sm text-muted-foreground mt-2">
               Where M indicates the version (1 or 4) and N indicates the variant.
-            </CardDescription>
+            </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

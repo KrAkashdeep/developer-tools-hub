@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function PasswordStrengthTool() {
   const [input, setInput] = useState('');
@@ -181,16 +182,60 @@ export default function PasswordStrengthTool() {
         </div>
       </ToolLayout>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Password Strength Checker</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Analyzes password strength based on length, character variety, and common patterns. Provides suggestions for improvement.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Password Strength Checker Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">How it works:</h4>
+            <p className="text-sm text-muted-foreground">
+              Analyzes password strength based on length, character variety, and common patterns. 
+              Provides real-time feedback and suggestions for improvement.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Scoring criteria:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Length:</strong> 8+ characters (20 points), 12+ characters (+10 points)</li>
+              <li><strong>Lowercase letters:</strong> a-z (15 points)</li>
+              <li><strong>Uppercase letters:</strong> A-Z (15 points)</li>
+              <li><strong>Numbers:</strong> 0-9 (15 points)</li>
+              <li><strong>Special characters:</strong> !@#$%^&* etc. (15 points)</li>
+              <li><strong>No patterns:</strong> Avoid repeated sequences (10 points)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Strength levels:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Very Weak (0-29):</strong> Easily cracked, avoid using</li>
+              <li><strong>Weak (30-49):</strong> Vulnerable to attacks</li>
+              <li><strong>Fair (50-69):</strong> Basic security, could be improved</li>
+              <li><strong>Good (70-84):</strong> Strong security for most uses</li>
+              <li><strong>Strong (85-100):</strong> Excellent security</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Best practices:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Use at least 12 characters for important accounts</li>
+              <li>Mix uppercase, lowercase, numbers, and symbols</li>
+              <li>Avoid dictionary words and personal information</li>
+              <li>Don't reuse passwords across multiple sites</li>
+              <li>Consider using a password manager</li>
+              <li>Enable two-factor authentication when available</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Privacy note:</h4>
+            <p className="text-sm text-muted-foreground">
+              All password analysis is done locally in your browser. 
+              Your password is never sent to any server or stored anywhere.
+            </p>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

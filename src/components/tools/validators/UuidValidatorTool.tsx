@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function UuidValidatorTool() {
   const [input, setInput] = useState('');
@@ -186,11 +187,8 @@ export default function UuidValidatorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>UUID Validator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="UUID Validator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">UUID format:</h4>
             <CardDescription>
@@ -230,8 +228,8 @@ export default function UuidValidatorTool() {
               <li>Session and transaction IDs</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

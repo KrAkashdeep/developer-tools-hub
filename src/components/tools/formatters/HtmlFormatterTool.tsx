@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HtmlFormatterTool() {
   const [input, setInput] = useState('');
@@ -92,17 +93,14 @@ export default function HtmlFormatterTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use HTML Formatter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="HTML Formatter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Formats and beautifies HTML code with proper indentation and structure. 
               Makes minified or poorly formatted HTML readable and organized.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -125,8 +123,8 @@ export default function HtmlFormatterTool() {
               <li>Debug HTML structure issues</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

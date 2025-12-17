@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { IconUpload, IconDownload, IconX, IconLink } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface ImageInfo {
   name: string;
@@ -418,11 +419,8 @@ export default function ImageResizerTool() {
       )}
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Image Resizer Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Image Resizer Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Resize modes:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -454,8 +452,8 @@ export default function ImageResizerTool() {
               <li>Create profile pictures</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

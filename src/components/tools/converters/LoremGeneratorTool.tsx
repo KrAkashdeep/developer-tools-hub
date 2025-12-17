@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import OutputBox from '@/components/common/OutputBox';
 import { IconRefresh } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function LoremGeneratorTool() {
   const [output, setOutput] = useState('');
@@ -189,18 +190,15 @@ export default function LoremGeneratorTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About Lorem Ipsum</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Lorem Ipsum Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is Lorem Ipsum?</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Lorem Ipsum is placeholder text commonly used in the printing and typesetting industry. 
               It's derived from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" 
               (The Extremes of Good and Evil) by Cicero, written in 45 BC.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -235,8 +233,8 @@ export default function LoremGeneratorTool() {
               <li>Test with both short and long content variations</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

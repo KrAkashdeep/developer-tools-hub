@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function UrlEncodeTool() {
   const [input, setInput] = useState('');
@@ -55,17 +56,14 @@ export default function UrlEncodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use URL Encoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="URL Encoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts text into a URL-safe format by replacing special characters with percent-encoded values. 
               This is essential for passing data through URLs.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -97,8 +95,8 @@ export default function UrlEncodeTool() {
               <div>Output: "Hello%20World%21"</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

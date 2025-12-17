@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function FindReplaceTool() {
   const [input, setInput] = useState('');
@@ -165,16 +166,49 @@ World peace is important for everyone.`;
         </div>
       </ToolLayout>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Find & Replace Tool</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Search and replace text with options for case sensitivity and regex patterns. Shows the number of replacements made.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Find & Replace Tool Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Search and replace text with options for case sensitivity and regex patterns. 
+              Shows the number of replacements made in real-time.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Case-sensitive or case-insensitive search</li>
+              <li>Regular expression support</li>
+              <li>Real-time replacement count</li>
+              <li>Global replace (all occurrences)</li>
+              <li>Preserves text formatting</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Regex examples:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><code>\\d+</code> - Find all numbers</li>
+              <li><code>\\b\\w+@\\w+\\.\\w+\\b</code> - Find email addresses</li>
+              <li><code>^.*error.*$</code> - Find lines containing "error"</li>
+              <li><code>\\s+</code> - Find multiple spaces</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Code refactoring and cleanup</li>
+              <li>Data formatting and cleaning</li>
+              <li>Content editing and proofreading</li>
+              <li>Batch text modifications</li>
+              <li>Template customization</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsonMinifierTool() {
   const [input, setInput] = useState('');
@@ -104,17 +105,14 @@ export default function JsonMinifierTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use JSON Minifier</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JSON Minifier Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Removes all unnecessary whitespace, line breaks, and formatting from JSON data 
               to reduce file size while maintaining the same data structure.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -137,8 +135,8 @@ export default function JsonMinifierTool() {
               <li>Save bandwidth in data transmission</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

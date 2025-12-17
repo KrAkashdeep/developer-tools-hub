@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsMinifierTool() {
   const [input, setInput] = useState('');
@@ -133,17 +134,14 @@ console.log("Total:", cart.getTotal());`;
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use JavaScript Minifier</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JavaScript Minifier Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Removes comments, unnecessary whitespace, and formatting from JavaScript code 
               to reduce file size while preserving functionality.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -176,8 +174,8 @@ console.log("Total:", cart.getTotal());`;
               <li>This is basic minification - use tools like UglifyJS for advanced optimization</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

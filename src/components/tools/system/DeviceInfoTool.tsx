@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function DeviceInfoTool() {
   const [deviceInfo, setDeviceInfo] = useState<any>(null);
@@ -198,16 +199,49 @@ export default function DeviceInfoTool() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Device Info Detector</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Detects and displays comprehensive information about your device, browser, and system capabilities.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Device Info Detector Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it detects:</h4>
+            <p className="text-sm text-muted-foreground">
+              Displays comprehensive information about your device, browser, and system capabilities 
+              using JavaScript APIs available in your browser.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Information categories:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Browser:</strong> Name, version, platform, language settings</li>
+              <li><strong>Display:</strong> Screen resolution, viewport size, color depth, pixel ratio</li>
+              <li><strong>Hardware:</strong> CPU cores, device memory, touch support</li>
+              <li><strong>Location:</strong> Time zone, preferred languages</li>
+              <li><strong>Capabilities:</strong> Cookie support, online status</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Web development and testing</li>
+              <li>Browser compatibility checking</li>
+              <li>Device capability detection</li>
+              <li>Responsive design testing</li>
+              <li>Technical support and debugging</li>
+              <li>Analytics and user research</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Privacy note:</h4>
+            <p className="text-sm text-muted-foreground">
+              All information is detected locally using standard browser APIs. 
+              No data is sent to external servers. The information shown is what 
+              websites can typically access about your device.
+            </p>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

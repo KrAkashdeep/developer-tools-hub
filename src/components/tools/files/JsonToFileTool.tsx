@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsonToFileTool() {
   const [input, setInput] = useState('');
@@ -218,11 +219,8 @@ export default function JsonToFileTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>JSON to File Tool Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JSON to File Tool Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Features:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -267,8 +265,8 @@ export default function JsonToFileTool() {
               <li>Validate JSON before sharing with others</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

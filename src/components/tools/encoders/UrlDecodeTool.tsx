@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function UrlDecodeTool() {
   const [input, setInput] = useState('');
@@ -59,17 +60,14 @@ export default function UrlDecodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use URL Decoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="URL Decoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts URL-encoded (percent-encoded) text back to its original format. 
               Decodes %XX sequences back to their corresponding characters.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -111,8 +109,8 @@ export default function UrlDecodeTool() {
               <div>Output: "Hello World!"</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

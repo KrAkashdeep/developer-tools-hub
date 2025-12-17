@@ -7,6 +7,7 @@ import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsonToXmlTool() {
   const [input, setInput] = useState('');
@@ -251,11 +252,8 @@ export default function JsonToXmlTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>JSON to XML Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JSON to XML Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Features:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -337,8 +335,8 @@ export default function JsonToXmlTool() {
               <li>Complex nested arrays may create verbose XML</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function EpochToDateTool() {
   const [input, setInput] = useState('');
@@ -226,11 +227,8 @@ Original Timestamp:
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Epoch to Date Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Epoch to Date Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is Unix Timestamp?</h4>
             <p className="text-sm text-muted-foreground">
@@ -279,8 +277,8 @@ Original Timestamp:
               <li>Local time display depends on your browser's timezone</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

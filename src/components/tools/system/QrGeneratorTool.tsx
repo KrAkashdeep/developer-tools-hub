@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { IconDownload } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function QrGeneratorTool() {
   const [input, setInput] = useState('');
@@ -184,11 +185,8 @@ export default function QrGeneratorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>QR Code Generator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="QR Code Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is a QR Code?</h4>
             <CardDescription>
@@ -229,8 +227,8 @@ export default function QrGeneratorTool() {
               <li>Leave white space around the QR code</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

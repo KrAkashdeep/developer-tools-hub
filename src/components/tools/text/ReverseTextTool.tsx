@@ -7,6 +7,7 @@ import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 type ReverseMode = 'characters' | 'words' | 'lines';
 
@@ -143,11 +144,8 @@ Final line here.`;
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Reverse Text Tool Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Reverse Text Tool Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Reverse modes:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -193,8 +191,8 @@ Final line here.`;
               <li>Try different modes to see which works best for your needs</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

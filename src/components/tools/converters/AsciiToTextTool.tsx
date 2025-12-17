@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function AsciiToTextTool() {
   const [input, setInput] = useState('');
@@ -176,11 +177,8 @@ export default function AsciiToTextTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>ASCII to Text Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="ASCII to Text Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What is ASCII?</h4>
             <p className="text-sm text-muted-foreground">
@@ -230,8 +228,8 @@ export default function AsciiToTextTool() {
               <li>Use the reference table to understand common codes</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

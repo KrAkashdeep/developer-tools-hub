@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function XmlFormatterTool() {
   const [input, setInput] = useState('');
@@ -94,17 +95,14 @@ export default function XmlFormatterTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use XML Formatter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="XML Formatter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Formats and beautifies XML data with proper indentation and structure. 
               Makes minified or poorly formatted XML readable and organized.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -139,8 +137,8 @@ export default function XmlFormatterTool() {
               <li>Improve XML configuration files</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

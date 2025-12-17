@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JwtDecoderTool() {
   const [input, setInput] = useState('');
@@ -95,16 +96,46 @@ export default function JwtDecoderTool() {
         </div>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>JWT Decoder</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Decodes JWT (JSON Web Token) to view header and payload information. Note: This tool only decodes - it does not verify signatures.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="JWT Decoder Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Decodes JWT (JSON Web Token) to view header and payload information. 
+              Note: This tool only decodes - it does not verify signatures.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">JWT structure:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Header:</strong> Contains algorithm and token type</li>
+              <li><strong>Payload:</strong> Contains claims (user data, expiration, etc.)</li>
+              <li><strong>Signature:</strong> Used to verify token authenticity</li>
+              <li>Format: header.payload.signature (Base64 encoded)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Common claims:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>sub:</strong> Subject (user ID)</li>
+              <li><strong>iat:</strong> Issued at (timestamp)</li>
+              <li><strong>exp:</strong> Expiration time</li>
+              <li><strong>aud:</strong> Audience</li>
+              <li><strong>iss:</strong> Issuer</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Security note:</h4>
+            <p className="text-sm text-muted-foreground">
+              This tool only decodes JWTs for inspection. It does not verify signatures 
+              or validate tokens. Never trust decoded JWT data without proper verification.
+            </p>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

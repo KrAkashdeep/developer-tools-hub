@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function MorseEncodeTool() {
   const [input, setInput] = useState('');
@@ -73,17 +74,14 @@ export default function MorseEncodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use Morse Code Encoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Morse Code Encoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts text to Morse code using dots (.) and dashes (-). 
               Spaces between words are represented by forward slashes (/).
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -117,8 +115,8 @@ export default function MorseEncodeTool() {
               <li>Historical communication methods</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

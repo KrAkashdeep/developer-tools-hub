@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface RegexMatch {
   match: string;
@@ -249,11 +250,8 @@ Invalid emails: notanemail, @invalid.com, test@`);
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Regex Tester Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Regex Tester Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Common Patterns:</h4>
             <div className="space-y-2 text-sm">
@@ -287,8 +285,8 @@ Invalid emails: notanemail, @invalid.com, test@`);
               <li><strong>Sticky (y):</strong> Match only from lastIndex position</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

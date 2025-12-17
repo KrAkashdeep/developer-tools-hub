@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CaseConverterTool() {
   const [input, setInput] = useState('');
@@ -112,11 +113,8 @@ export default function CaseConverterTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Case Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Case Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Available conversions:</h4>
             <div className="space-y-2 text-sm">
@@ -169,8 +167,8 @@ export default function CaseConverterTool() {
               <li>Use snake_case for database columns and Python variables</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

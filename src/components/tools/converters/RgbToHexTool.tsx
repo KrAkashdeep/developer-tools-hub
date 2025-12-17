@@ -7,6 +7,7 @@ import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function RgbToHexTool() {
   const [input, setInput] = useState('');
@@ -221,11 +222,8 @@ export default function RgbToHexTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>RGB to HEX Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="RGB to HEX Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Supported RGB Formats:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -266,8 +264,8 @@ export default function RgbToHexTool() {
               <li>Color palette creation and documentation</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

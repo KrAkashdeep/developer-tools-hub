@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface CharacterStats {
   total: number;
@@ -196,11 +197,8 @@ Testing character counting functionality.`;
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Character Counter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Character Counter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it analyzes:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -233,8 +231,8 @@ Testing character counting functionality.`;
               <li><strong>Instagram:</strong> 2,200 characters for captions</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function Base64DecodeTool() {
   const [input, setInput] = useState('');
@@ -59,17 +60,14 @@ export default function Base64DecodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use Base64 Decoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Base64 Decoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts Base64 encoded strings back to their original text format. 
               Base64 is commonly used to encode binary data for transmission over text-based protocols.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -110,8 +108,8 @@ export default function Base64DecodeTool() {
               <div>Output: "Hello World"</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

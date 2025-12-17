@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function DiffCheckerTool() {
   const [text1, setText1] = useState('');
@@ -102,16 +103,37 @@ New line`;
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Diff Checker</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Compare two texts and highlight the differences between them. Shows added, removed, and unchanged lines.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Diff Checker Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">How it works:</h4>
+            <p className="text-sm text-muted-foreground">
+              Compare two texts line by line and highlight the differences between them. 
+              Shows added, removed, and unchanged lines in a unified diff format.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Legend:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><span className="text-red-500">- Red lines:</span> Removed from original text</li>
+              <li><span className="text-green-500">+ Green lines:</span> Added in modified text</li>
+              <li>  Unchanged lines: Present in both texts</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Compare different versions of code or documents</li>
+              <li>Review changes before committing</li>
+              <li>Identify what changed between file versions</li>
+              <li>Merge conflicts resolution</li>
+              <li>Content editing and proofreading</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

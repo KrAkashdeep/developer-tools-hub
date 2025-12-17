@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HtmlDecodeTool() {
   const [input, setInput] = useState('');
@@ -70,17 +71,14 @@ export default function HtmlDecodeTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use HTML Decoder</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="HTML Decoder Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Converts HTML entities back to their original characters. Decodes both named entities 
               (&amp;lt;, &amp;gt;) and numeric entities (&#39;, &#x27;).
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -107,8 +105,8 @@ export default function HtmlDecodeTool() {
               <li>Process API responses with encoded content</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { IconRefresh, IconExternalLink } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HtmlPreviewerTool() {
   const [input, setInput] = useState('');
@@ -257,11 +258,8 @@ export default function HtmlPreviewerTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base sm:text-lg">HTML Previewer Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
+      <CollapsibleGuide title="HTML Previewer Guide">
+        <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-semibold mb-3 text-sm sm:text-base">Features:</h4>
@@ -310,8 +308,8 @@ export default function HtmlPreviewerTool() {
               </ul>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

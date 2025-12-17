@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { IconUpload, IconX, IconDownload } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface PdfInfo {
   name: string;
@@ -296,11 +297,8 @@ export default function PdfToTextTool() {
       )}
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>PDF to Text Extractor Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="PDF to Text Extractor Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">How it works:</h4>
             <p className="text-sm text-muted-foreground">
@@ -351,8 +349,8 @@ export default function PdfToTextTool() {
               <li>Archive PDF content as text files</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function SlugGeneratorTool() {
   const [input, setInput] = useState('');
@@ -86,16 +87,49 @@ export default function SlugGeneratorTool() {
         />
       </ToolLayout>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Slug Generator</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Converts text to URL-friendly slugs by removing special characters, converting to lowercase, and replacing spaces with hyphens or underscores.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Slug Generator Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Converts text to URL-friendly slugs by removing special characters, converting to lowercase, 
+              and replacing spaces with hyphens or underscores.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Converts to lowercase automatically</li>
+              <li>Removes special characters and punctuation</li>
+              <li>Replaces spaces with hyphens or underscores</li>
+              <li>Removes multiple consecutive separators</li>
+              <li>Trims separators from start and end</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Creating SEO-friendly URLs</li>
+              <li>Blog post and article URLs</li>
+              <li>File and folder naming</li>
+              <li>Database identifiers</li>
+              <li>API endpoint paths</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Best practices:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Use hyphens (-) for better SEO</li>
+              <li>Keep slugs short and descriptive</li>
+              <li>Avoid stop words when possible</li>
+              <li>Use consistent separator throughout site</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

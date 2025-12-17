@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function HashGeneratorTool() {
   const [input, setInput] = useState('');
@@ -150,17 +151,14 @@ export default function HashGeneratorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Hash Generator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Hash Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What are hash functions?</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Hash functions convert input data into fixed-size strings. They're one-way functions 
               used for data integrity, password storage, and digital signatures.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -193,8 +191,8 @@ export default function HashGeneratorTool() {
               <li>Hashes are one-way - you cannot reverse them</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

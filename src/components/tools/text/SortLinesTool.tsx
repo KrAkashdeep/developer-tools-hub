@@ -7,6 +7,7 @@ import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function SortLinesTool() {
   const [input, setInput] = useState('');
@@ -114,16 +115,49 @@ export default function SortLinesTool() {
         </div>
       </ToolLayout>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Sort Lines Tool</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Sorts text lines alphabetically in ascending or descending order with optional case sensitivity.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="Sort Lines Tool Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Sorts text lines alphabetically in ascending (A-Z) or descending (Z-A) order 
+              with optional case sensitivity settings.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Ascending (A-Z) and descending (Z-A) sorting</li>
+              <li>Case-sensitive or case-insensitive options</li>
+              <li>Preserves line content and formatting</li>
+              <li>Handles special characters and numbers</li>
+              <li>Real-time sorting as you change options</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Sorting behavior:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>Case-insensitive:</strong> "apple" and "Apple" sorted together</li>
+              <li><strong>Case-sensitive:</strong> Uppercase letters come before lowercase</li>
+              <li><strong>Numbers:</strong> Sorted as text, not numerically</li>
+              <li><strong>Special chars:</strong> Sorted by Unicode value</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Organize lists alphabetically</li>
+              <li>Sort CSV data by first column</li>
+              <li>Arrange names or items in order</li>
+              <li>Organize code imports</li>
+              <li>Sort configuration entries</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

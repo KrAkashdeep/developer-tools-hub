@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function ExtractUrlsTool() {
   const [input, setInput] = useState('');
@@ -145,11 +146,8 @@ export default function ExtractUrlsTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Extract URLs Tool Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Extract URLs Tool Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it extracts:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -195,8 +193,8 @@ export default function ExtractUrlsTool() {
               <li>example.com/page?param=value#section</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

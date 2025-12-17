@@ -6,6 +6,7 @@ import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function IpValidatorTool() {
   const [input, setInput] = useState('');
@@ -203,11 +204,8 @@ export default function IpValidatorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>IP Address Validator Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="IP Address Validator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Supported formats:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -236,8 +234,8 @@ export default function IpValidatorTool() {
               <li><strong>Multicast:</strong> ff00::/8</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

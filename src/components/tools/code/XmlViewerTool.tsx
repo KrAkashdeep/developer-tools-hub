@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface XmlNode {
   name: string;
@@ -338,11 +339,8 @@ export default function XmlViewerTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>XML Viewer Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="XML Viewer Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Features:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -387,8 +385,8 @@ export default function XmlViewerTool() {
               <li>Scroll horizontally if content is wide</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

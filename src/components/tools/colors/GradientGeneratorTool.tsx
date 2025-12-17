@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import CopyButton from '@/components/common/CopyButton';
 import { IconRefresh } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function GradientGeneratorTool() {
   const [color1, setColor1] = useState('#3b82f6');
@@ -137,16 +138,48 @@ export default function GradientGeneratorTool() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>CSS Gradient Generator</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Create beautiful CSS gradients with customizable colors and directions.
-          </CardDescription>
-        </CardContent>
-      </Card>
+      <CollapsibleGuide title="CSS Gradient Generator Guide">
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What it does:</h4>
+            <p className="text-sm text-muted-foreground">
+              Create beautiful CSS gradients with customizable colors and directions for use in web design.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-2">Features:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Choose two colors using color pickers or hex codes</li>
+              <li>Select gradient direction (horizontal, vertical, diagonal)</li>
+              <li>Real-time preview of the gradient</li>
+              <li>Copy CSS code with one click</li>
+              <li>Generate random gradient combinations</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Gradient directions:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li><strong>to right:</strong> Horizontal gradient (left to right)</li>
+              <li><strong>to bottom:</strong> Vertical gradient (top to bottom)</li>
+              <li><strong>to bottom right:</strong> Diagonal gradient</li>
+              <li><strong>45deg:</strong> Custom angle gradient</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Use cases:</h4>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Website backgrounds and headers</li>
+              <li>Button and UI element styling</li>
+              <li>Card and container backgrounds</li>
+              <li>Modern web design effects</li>
+              <li>Brand color implementations</li>
+            </ul>
+          </div>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

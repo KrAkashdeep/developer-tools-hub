@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { IconDownload } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function TextToPdfTool() {
   const [input, setInput] = useState('');
@@ -338,11 +339,8 @@ Thank you for using the Text to PDF converter!`;
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Text to PDF Converter Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Text to PDF Converter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Features:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -385,8 +383,8 @@ Thank you for using the Text to PDF converter!`;
               <li>No images or complex layouts</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

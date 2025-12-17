@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { IconUpload, IconDownload, IconX } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface ImageInfo {
   name: string;
@@ -287,11 +288,8 @@ export default function ImageCompressorTool() {
       )}
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Image Compressor Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Image Compressor Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">How it works:</h4>
             <p className="text-sm text-muted-foreground">
@@ -332,8 +330,8 @@ export default function ImageCompressorTool() {
               <li>Improve website loading times</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

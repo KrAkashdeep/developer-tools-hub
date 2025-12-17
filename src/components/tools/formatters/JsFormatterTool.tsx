@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsFormatterTool() {
   const [input, setInput] = useState('');
@@ -96,17 +97,14 @@ export default function JsFormatterTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use JavaScript Formatter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JavaScript Formatter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Formats and beautifies JavaScript code with proper indentation, line breaks, 
               and spacing to improve readability and maintainability.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -139,8 +137,8 @@ export default function JsFormatterTool() {
               <li>Helps identify code structure and flow</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

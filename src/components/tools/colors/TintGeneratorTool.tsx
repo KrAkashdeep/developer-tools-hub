@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import CopyButton from '@/components/common/CopyButton';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function TintGeneratorTool() {
   const [baseColor, setBaseColor] = useState('#3b82f6');
@@ -311,11 +312,8 @@ ${tints.map((tint, index) => `  --tint-${index + 1}: ${tint.toUpperCase()};`).jo
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>About Tint Generator</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Tint Generator Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What are Color Tints?</h4>
             <p className="text-sm text-muted-foreground">
@@ -365,8 +363,8 @@ ${tints.map((tint, index) => `  --tint-${index + 1}: ${tint.toUpperCase()};`).jo
               <li>Better for creating professional color palettes</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

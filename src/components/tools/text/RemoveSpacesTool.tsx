@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function RemoveSpacesTool() {
   const [input, setInput] = useState('');
@@ -211,11 +212,8 @@ Final line with trailing spaces.   `;
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Remove Spaces Tool Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Remove Spaces Tool Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Whitespace removal options:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -248,8 +246,8 @@ Final line with trailing spaces.   `;
               <li>Check the character count to see how much was removed</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

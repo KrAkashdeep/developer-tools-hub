@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function MarkdownPreviewerTool() {
   const [input, setInput] = useState('');
@@ -344,11 +345,8 @@ console.log(greet('World'));
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Markdown Previewer Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Markdown Previewer Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Supported syntax:</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -394,8 +392,8 @@ console.log(greet('World'));
               <li>Learn Markdown syntax</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

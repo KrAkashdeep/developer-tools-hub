@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import CopyButton from '@/components/common/CopyButton';
 import { IconRefresh } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function CssGradientPreviewerTool() {
   const [input, setInput] = useState('');
@@ -235,11 +236,8 @@ export default function CssGradientPreviewerTool() {
       </Card>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>CSS Gradient Previewer Guide</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="CSS Gradient Previewer Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">Supported gradient types:</h4>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -279,8 +277,8 @@ export default function CssGradientPreviewerTool() {
               <div>linear-gradient(to right, #ff6b6b 0%, #4ecdc4 100%)</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import OutputBox from '@/components/common/OutputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 export default function JsonFormatterTool() {
   const [input, setInput] = useState('');
@@ -60,17 +61,14 @@ export default function JsonFormatterTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use JSON Formatter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="JSON Formatter Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Formats and beautifies JSON data with proper indentation and structure. 
               Makes minified JSON readable and validates JSON syntax.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -93,8 +91,8 @@ export default function JsonFormatterTool() {
               <li>Works with any valid JSON structure</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

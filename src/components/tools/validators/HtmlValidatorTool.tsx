@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { IconCheck, IconX, IconAlertTriangle, IconInfoCircle } from '@tabler/icons-react';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface ValidationError {
   type: 'error' | 'warning' | 'info';
@@ -284,14 +285,8 @@ export default function HtmlValidatorTool() {
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base sm:text-lg">HTML Validator Guide</CardTitle>
-          <CardDescription>
-            Validate your HTML markup for errors, warnings, and best practices
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="HTML Validator Guide" description="Validate your HTML markup for errors, warnings, and best practices">
+        <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-semibold mb-2">What it checks:</h4>
@@ -314,8 +309,8 @@ export default function HtmlValidatorTool() {
               </ul>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }

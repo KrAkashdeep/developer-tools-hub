@@ -5,6 +5,7 @@ import ToolLayout from '@/components/common/ToolLayout';
 import InputBox from '@/components/common/InputBox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import CollapsibleGuide from '@/components/common/CollapsibleGuide';
 
 interface TextStats {
   characters: number;
@@ -145,17 +146,14 @@ Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor
       </ToolLayout>
 
       {/* Documentation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>How to use Word Counter</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <CollapsibleGuide title="Word Counter Tool Guide">
+        <div className="space-y-4">
           <div>
             <h4 className="font-semibold mb-2">What it does:</h4>
-            <CardDescription>
+            <p className="text-sm text-muted-foreground">
               Analyzes text and provides detailed statistics including word count, character count, 
               sentences, paragraphs, and estimated reading time.
-            </CardDescription>
+            </p>
           </div>
           
           <div>
@@ -191,8 +189,8 @@ Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor
               <li>Estimate presentation speaking time</li>
             </ul>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </CollapsibleGuide>
     </div>
   );
 }
