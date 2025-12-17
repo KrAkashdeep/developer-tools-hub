@@ -159,7 +159,7 @@ export default function AllToolsClient() {
       
       // If closing the category, just remove it
       if (isCurrentlyExpanded) {
-        const newExpanded = [];
+        const newExpanded: string[] = [];
         
         // Save immediately when toggling
         if (isInitialized) {
