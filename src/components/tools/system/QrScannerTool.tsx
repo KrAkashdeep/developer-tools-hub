@@ -239,7 +239,9 @@ export default function QrScannerTool() {
       scannerRef.current = new Html5QrcodeScanner(readerElementId, config, false);
 
       // Render the scanner (this will show the camera UI)
-      scannerRef.current.render(onScanSuccess, onScanFailure);
+      if (scannerRef.current) {
+        scannerRef.current.render(onScanSuccess, onScanFailure);
+      }
 
       setIsScanning(true);
       setScanningStatus('Camera starting - please allow camera access');
