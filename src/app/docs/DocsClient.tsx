@@ -1,1 +1,1 @@
-'use c
+'use client';

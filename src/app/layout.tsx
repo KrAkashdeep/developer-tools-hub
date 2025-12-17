@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/contexts/theme-context";
 import { Header, Footer } from "@/components/layout";
 import { ErrorBoundary, BrowserCompatInit } from "@/components/common";
+import { Analytics } from '@vercel/analytics/react';
+import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -117,6 +119,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <ThemeProvider defaultTheme="system">
             <BrowserCompatInit />
+            <GoogleAnalytics />
             <ErrorBoundary>
               <Header />
             </ErrorBoundary>
@@ -130,6 +133,7 @@ export default function RootLayout({
             </ErrorBoundary>
           </ThemeProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   );

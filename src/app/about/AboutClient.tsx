@@ -8,8 +8,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { IconMail, IconUser, IconMessageCircle, IconSend, IconHeart, IconCode, IconBolt, IconShield } from '@tabler/icons-react';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 export default function AboutClient() {
+  const { trackForm, trackButton } = useAnalytics();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,12 +47,16 @@ export default function AboutClient() {
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
+        // Track successful form submission
+        trackForm('feedback_form', true);
       } else {
         throw new Error(result.error || 'Failed to send feedback');
       }
     } catch (error) {
       console.error('Error sending feedback:', error);
       setSubmitStatus('error');
+      // Track failed form submission
+      trackForm('feedback_form', false);
     } finally {
       setIsSubmitting(false);
     }
@@ -219,6 +225,7 @@ export default function AboutClient() {
                   type="submit"
                   disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
                   className="w-full flex items-center gap-2"
+                  onClick={() => trackButton('send_feedback', 'about_page')}
                 >
                   {isSubmitting ? (
                     <>
