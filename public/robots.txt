@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://multidevtools.vercel.app/sitemap.xml
+Sitemap: https://multidevtool.vercel.app/sitemap.xml
