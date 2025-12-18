@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://multidevtool.vercel.app'
-  const currentDate = new Date().toISOString().split('T')[0]
+  const currentDate = new Date()
 
   // Main pages
   const mainPages = [
