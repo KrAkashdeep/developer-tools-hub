@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://multidevtools.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://multidevtool.vercel.app'),
   title: {
     default: "multidevTools - 80+ Developer Tools Suite",
     template: "%s | multidevTools"
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     images: ['/icon.svg'],
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: '1UxP5g9Q6CrhwNhaSghO3e3ss9PpI0F0NpImNkCEaRQ',
   },
 };
 
