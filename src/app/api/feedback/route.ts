@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get Formspree endpoint from environment
     const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
     
     if (!formspreeEndpoint) {

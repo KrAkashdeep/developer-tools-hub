@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { IconUpload, IconDownload, IconX, IconLink } from '@tabler/icons-react';
 import CollapsibleGuide from '@/components/common/CollapsibleGuide';
+import { useScrollToOutput } from '@/hooks/useScrollToOutput';
 
 interface ImageInfo {
   name: string;
@@ -30,6 +31,7 @@ export default function ImageResizerTool() {
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const scrollToOutput = useScrollToOutput();
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -163,6 +165,11 @@ export default function ImageResizerTool() {
               height: height,
               type: originalInfo.type
             });
+            
+            // Scroll to the results section after processing
+            setTimeout(() => {
+              scrollToOutput();
+            }, 100);
           }
           setIsProcessing(false);
         },
@@ -262,7 +269,40 @@ export default function ImageResizerTool() {
         </CardContent>
       </Card>
 
-      {/* Resize Settings */}
+     
+
+      {/* Common Sizes */}
+      {originalInfo && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Common Sizes</CardTitle>
+            <CardDescription>Click to use preset dimensions</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {commonSizes.map((size, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setTargetWidth(size.width.toString());
+                    setTargetHeight(size.height.toString());
+                  }}
+                  className="text-xs"
+                >
+                  <div className="text-center">
+                    <div className="font-semibold">{size.name}</div>
+                    <div className="text-muted-foreground">{size.width}×{size.height}</div>
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+       {/* Resize Settings */}
       {originalInfo && (
         <Card>
           <CardHeader>
@@ -350,43 +390,12 @@ export default function ImageResizerTool() {
         </Card>
       )}
 
-      {/* Common Sizes */}
-      {originalInfo && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Common Sizes</CardTitle>
-            <CardDescription>Click to use preset dimensions</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              {commonSizes.map((size, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setTargetWidth(size.width.toString());
-                    setTargetHeight(size.height.toString());
-                  }}
-                  className="text-xs"
-                >
-                  <div className="text-center">
-                    <div className="font-semibold">{size.name}</div>
-                    <div className="text-muted-foreground">{size.width}×{size.height}</div>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Processing Canvas (hidden) */}
       <canvas ref={canvasRef} className="hidden" />
 
       {/* Results */}
       {resizedImage && resizedInfo && (
-        <Card>
+        <Card data-output-section="true">
           <CardHeader>
             <CardTitle>Resized Image</CardTitle>
           </CardHeader>

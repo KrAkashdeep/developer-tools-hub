@@ -6,9 +6,12 @@ export const useScrollToOutput = () => {
     setTimeout(() => {
       const outputElement = document.querySelector('[data-output-section="true"]');
       if (outputElement) {
+        // Check if we're on mobile (screen width < 768px)
+        const isMobile = window.innerWidth < 768;
+        
         outputElement.scrollIntoView({ 
           behavior: 'smooth', 
-          block: 'start',
+          block: isMobile ? 'center' : 'start',
           inline: 'nearest'
         });
       }
