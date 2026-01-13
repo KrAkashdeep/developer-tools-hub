@@ -24,7 +24,7 @@ A comprehensive collection of 80+ developer tools built with Next.js 16, featuri
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/devtools-hub.git
+   git clone https://github.com/KrAkashdeep/devloper-tools-hub.git
    cd devtools-hub
    ```
 
@@ -89,68 +89,7 @@ Create a `.env.local` file with:
 ```env
 # Site Configuration
 NEXT_PUBLIC_SITE_URL=https://your-domain.vercel.app
-
-# Email Configuration (Optional - for feedback form)
-GMAIL_USER=your-email@gmail.com
-GMAIL_APP_PASSWORD=your-app-password
-IFTTT_WEBHOOK_KEY=your-ifttt-key
-WEBHOOK_URL=https://your-webhook-service.com/endpoint
 ```
-
-### Customization
-
-- **Branding**: Update metadata in `src/app/layout.tsx`
-- **Tools**: Add new tools in `src/lib/data/tools.ts`
-- **Styling**: Modify themes in `src/app/globals.css`
-- **Components**: Customize UI in `src/components/`
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── api/               # API routes
-│   ├── tools/             # Tool pages
-│   └── layout.tsx         # Root layout
-├── components/            # React components
-│   ├── common/           # Shared components
-│   ├── tools/            # Tool-specific components
-│   └── ui/               # UI primitives
-├── lib/                  # Utilities and data
-│   ├── data/            # Tool definitions
-│   ├── types/           # TypeScript types
-│   └── utils/           # Helper functions
-└── hooks/               # Custom React hooks
-```
-
-## 🐛 Troubleshooting
-
-### Build Issues
-
-If you encounter build errors:
-
-1. **Clear Next.js cache**
-   ```bash
-   rm -rf .next
-   npm run build
-   ```
-
-2. **Check Node.js version**
-   ```bash
-   node --version  # Should be 18.17 or higher
-   ```
-
-3. **Verify dependencies**
-   ```bash
-   npm install
-   npm audit fix
-   ```
-
-### Deployment Issues
-
-1. **Check build logs** in Vercel dashboard
-2. **Verify environment variables** are set correctly
-3. **Ensure all imports** are properly resolved
 
 ## 🤝 Contributing
 
@@ -160,17 +99,5 @@ If you encounter build errors:
 4. Push to the branch (`git push origin feature/amazing-tool`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) for the amazing framework
-- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS
-- [Radix UI](https://www.radix-ui.com/) for accessible components
-- [Tabler Icons](https://tabler-icons.io/) for beautiful icons
-
----
 
 **Ready to deploy?** Just push to GitHub and connect with Vercel! 🚀
